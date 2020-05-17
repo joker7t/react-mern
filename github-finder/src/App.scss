@@ -1,0 +1,13 @@
+$primaryColor: #3292a6;
+$primaryOverlay: rgba(50, 146, 166, 0.8);
+
+// import Boostrap and custom it
+// change the theme
+$theme-colors: (
+  "primary": $primaryColor,
+);
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+//end Bootstrap
+
