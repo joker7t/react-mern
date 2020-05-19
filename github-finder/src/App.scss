@@ -14,3 +14,23 @@ $theme-colors: (
 .user-img{
   width: 60px;
 }
+
+.main-spinner-container{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  line-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+
+
+  .main-spinner{
+    color: $primaryColor;
+    width: 5rem;
+    height: 5rem;
+  }
+}
+

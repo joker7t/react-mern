@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import UserItem from './UserItem';
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
+import MainSpinner from "../fuctions/MainSpinner";
 
 class Users extends Component {
     state = {
-        data: []
+        data: [],
+        isLoading: true
     }
 
     showItemsPerRow = (row, i) => {
@@ -32,7 +34,10 @@ class Users extends Component {
     async componentDidMount() {
         try {
             const res = await axios.get("https://api.github.com/users");
-            this.setState({ data: res.data });
+            this.setState({
+                data: res.data,
+                isLoading: false
+            });
             console.log(res);
         } catch (error) {
             console.log(error.response.data);
@@ -41,9 +46,9 @@ class Users extends Component {
     }
 
     render() {
-        const { data } = this.state;
+        const { data, isLoading } = this.state;
 
-        return (
+        return isLoading ? <MainSpinner /> : (
             <div>
                 {this.buildItemsForRow(3, data)}
             </div>
