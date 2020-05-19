@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
+import Users from './users/Users';
+import { Container } from "react-bootstrap";
 
 class Landing extends Component {
+
     render() {
         return (
-            <div>
-                landing
-            </div>
+            <Container>
+                <Users />
+
+            </Container>
         );
     }
 }

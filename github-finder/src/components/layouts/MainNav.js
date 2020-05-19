@@ -14,7 +14,7 @@ class MainNav extends Component {
 
         return (
             <div>
-                <Navbar bg="primary" expand="lg">
+                <Navbar bg="primary" expand="lg" variant="dark">
                     <Navbar.Brand href="#home">
                         <i className={icon} /> {title}
                     </Navbar.Brand>

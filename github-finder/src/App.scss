@@ -1,5 +1,5 @@
-$primaryColor: #3292a6;
-$primaryOverlay: rgba(50, 146, 166, 0.8);
+$primaryColor: #a83289;
+$primaryOverlay: rgba(168, 50, 137, 0.8);
 
 // import Boostrap and custom it
 // change the theme
@@ -11,3 +11,6 @@ $theme-colors: (
 @import '~bootstrap/scss/bootstrap.scss';
 //end Bootstrap
 
+.user-img{
+  width: 60px;
+}
