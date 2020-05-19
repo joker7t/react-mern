@@ -3,12 +3,11 @@ import UserItem from './UserItem';
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import MainSpinner from "../fuctions/MainSpinner";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { loadUsers } from "../../actions/userAction";
 
 class Users extends Component {
-    state = {
-        data: [],
-        isLoading: true
-    }
 
     showItemsPerRow = (row, i) => {
         return <Row className="my-2" key={i}>
@@ -32,28 +31,36 @@ class Users extends Component {
     }
 
     async componentDidMount() {
+        const { setIsloading, loadUsers } = this.props;
         try {
             const res = await axios.get("https://api.github.com/users");
-            this.setState({
-                data: res.data,
-                isLoading: false
-            });
+            loadUsers(res.data);
             console.log(res);
         } catch (error) {
             console.log(error.response.data);
         }
+        setIsloading(false);
 
     }
 
     render() {
-        const { data, isLoading } = this.state;
+        const { users, isLoading } = this.props;
 
         return isLoading ? <MainSpinner /> : (
             <div>
-                {this.buildItemsForRow(3, data)}
+                {this.buildItemsForRow(3, users)}
             </div>
         );
     }
 }
 
-export default Users;
+Users.propTypes = {
+    loadUsers: PropTypes.func.isRequired,
+    users: PropTypes.array.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    users: state.user.users
+});
+
+export default connect(mapStateToProps, { loadUsers })(Users);
