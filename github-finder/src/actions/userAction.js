@@ -7,7 +7,7 @@ export const loadUsers = users => dispatch => {
     });
 };
 
-export const getSelectedUser = user => dispatch => {
+export const setSelectedUser = user => dispatch => {
     dispatch({
         type: GET_SELECTED_USER,
         payload: user

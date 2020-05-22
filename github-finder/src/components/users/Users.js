@@ -6,6 +6,7 @@ import MainSpinner from "../fuctions/MainSpinner";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loadUsers } from "../../actions/userAction";
+import { setIsLoading } from "../../actions/controlAction";
 
 class Users extends Component {
 
@@ -31,7 +32,7 @@ class Users extends Component {
     }
 
     async componentDidMount() {
-        const { setIsloading, loadUsers } = this.props;
+        const { setIsLoading, loadUsers } = this.props;
         try {
             const res = await axios.get("https://api.github.com/users");
             loadUsers(res.data);
@@ -39,7 +40,7 @@ class Users extends Component {
         } catch (error) {
             console.log(error.response.data);
         }
-        setIsloading(false);
+        setIsLoading(false);
 
     }
 
@@ -55,12 +56,15 @@ class Users extends Component {
 }
 
 Users.propTypes = {
+    isLoading: PropTypes.bool.isRequired,
+    setIsLoading: PropTypes.func.isRequired,
     loadUsers: PropTypes.func.isRequired,
     users: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
+    isLoading: state.control.isLoading,
     users: state.user.users
 });
 
-export default connect(mapStateToProps, { loadUsers })(Users);
+export default connect(mapStateToProps, { loadUsers, setIsLoading })(Users);
