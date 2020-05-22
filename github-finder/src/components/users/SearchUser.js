@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loadUsers } from "../../actions/userAction";
+import { setIsLoading } from "../../actions/controlAction";
 
 class SearchUser extends Component {
     state = {
@@ -25,9 +26,9 @@ class SearchUser extends Component {
             this.setState({ isShowAlert: true });
         } else {
             this.setState({ searchUser: "" });
-            const { setIsloading, loadUsers } = this.props;
+            const { setIsLoading, loadUsers } = this.props;
 
-            setIsloading(true);
+            setIsLoading(true);
             try {
                 const res = await axios.get(`https://api.github.com/search/users?q=${searchUser}`);
                 loadUsers(res.data.items);
@@ -35,7 +36,7 @@ class SearchUser extends Component {
             } catch (error) {
                 console.log(error.response.data);
             }
-            setIsloading(false);
+            setIsLoading(false);
         }
     };
 
@@ -81,6 +82,7 @@ class SearchUser extends Component {
 }
 
 SearchUser.propTypes = {
+    setIsLoading: PropTypes.func.isRequired,
     loadUsers: PropTypes.func.isRequired,
     users: PropTypes.array.isRequired
 };
@@ -89,4 +91,4 @@ const mapStateToProps = (state) => ({
     users: state.user.users
 });
 
-export default connect(mapStateToProps, { loadUsers })(SearchUser);
+export default connect(mapStateToProps, { loadUsers, setIsLoading })(SearchUser);
