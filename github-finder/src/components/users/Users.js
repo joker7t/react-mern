@@ -12,7 +12,7 @@ class Users extends Component {
     showItemsPerRow = (row, i) => {
         return <Row className="my-2" key={i}>
             {row.map((item, i2) => {
-                return <Col className="m-2" key={i2}>
+                return <Col className="my-2" key={i2}>
                     <UserItem user={item} />
                 </Col>
             })}

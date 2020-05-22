@@ -12,7 +12,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <MainNav icon="fa fa-github" title="Github Finder" />
-        <div className="App">
+        <div className="App" style={{ marginTop: "70px" }}>
           <Route exact path={HOME_PATH} component={Landing} />
         </div>
       </Router>

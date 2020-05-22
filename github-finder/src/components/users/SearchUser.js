@@ -16,6 +16,7 @@ class SearchUser extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault();
+        this.setState({ searchUser: "" });
         const { setIsloading, loadUsers } = this.props;
         const { searchUser } = this.state;
         setIsloading(true);
@@ -29,29 +30,49 @@ class SearchUser extends Component {
         setIsloading(false);
     };
 
+    onClear = async (e) => {
+        this.setState({ searchUser: "" });
+        const { loadUsers } = this.props;
+        loadUsers([]);
+    };
+
     render() {
         const { searchUser } = this.state;
+        const { users } = this.props;
 
         return (
-            <Form className="m-2" onSubmit={this.onSubmit}>
-                <Form.Control
-                    type="text"
-                    placeholder="Enter user"
-                    name="searchUser"
-                    value={searchUser}
-                    onChange={this.onChange}
-                />
+            <div>
+                <Form onSubmit={this.onSubmit}>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter user"
+                        name="searchUser"
+                        value={searchUser}
+                        onChange={this.onChange}
+                    />
 
-                <Button variant="dark" type="submit" block className="mt-1">
-                    Search
-                </Button>
-            </Form>
+                    <Button variant="dark" type="submit" block className="mt-3">
+                        Search
+                    </Button>
+                </Form>
+
+                {users.length === 0 ? "" :
+                    <Button variant="outline-dark" block className="my-3" onClick={this.onClear}>
+                        Clear
+                    </Button>
+                }
+            </div>
         );
     }
 }
 
 SearchUser.propTypes = {
-    loadUsers: PropTypes.func.isRequired
+    loadUsers: PropTypes.func.isRequired,
+    users: PropTypes.array.isRequired
 };
 
-export default connect(null, { loadUsers })(SearchUser);
+const mapStateToProps = (state) => ({
+    users: state.user.users
+});
+
+export default connect(mapStateToProps, { loadUsers })(SearchUser);
