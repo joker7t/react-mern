@@ -1,7 +1,8 @@
-import { LOAD_USER } from "../actions/type";
+import { LOAD_USER, GET_SELECTED_USER } from "../actions/type";
 
 const initialState = {
     users: [],
+    selectedUser: {}
 };
 
 export default function (state = initialState, action) {
@@ -10,6 +11,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 users: action.payload
+            };
+        case GET_SELECTED_USER:
+            return {
+                ...state,
+                selectedUser: action.payload
             };
 
         default:
