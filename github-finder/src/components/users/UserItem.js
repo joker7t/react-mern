@@ -3,7 +3,8 @@ import { Card, Image, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { USER_PATH } from "../../utils/constant";
 
-const UserItem = ({ login, avatar_url }) => {
+const UserItem = ({ user }) => {
+    const { login, avatar_url } = user;
 
     return (
         <Card className="text-center p-1">

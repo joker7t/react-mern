@@ -15,20 +15,6 @@ const User = ({ isLoading, repos, selectedUser, location, setIsLoading, setSelec
     const [loadMoreRepos, setLoadMoreRepos] = useState(false);
     const userRef = useRef();
 
-    const loadData = async (username) => {
-        setIsLoading(true);
-        try {
-            const resUser = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
-            setSelectedUser(resUser.data);
-
-            const resRepo = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
-            loadRepo(resRepo.data);
-        } catch (error) {
-            console.log(error && error.response);
-        }
-        setIsLoading(false);
-    }
-
     const showRepos = (repos) => repos.map((repo, i) => <Repo key={i} repoName={repo.full_name} />);
 
     const fetchMoreRepos = () => {
@@ -51,14 +37,27 @@ const User = ({ isLoading, repos, selectedUser, location, setIsLoading, setSelec
     }
 
     useEffect(() => {
+        const loadData = async (username) => {
+            setIsLoading(true);
+            try {
+                const resUser = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+                setSelectedUser(resUser.data);
+
+                const resRepo = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+                loadRepo(resRepo.data);
+            } catch (error) {
+                console.log(error && error.response);
+            }
+            setIsLoading(false);
+        }
+
         const { username } = location;
         if (username === undefined) {
             history.push("/");
-        }
-        else {
+        } else {
             loadData(username);
         }
-    });
+    }, [history, loadRepo, location, setIsLoading, setSelectedUser]);
 
     const { hireable, avatar_url, login, bio, html_url, company, blog, followers, following, public_repos, public_gists } = selectedUser;
     return (

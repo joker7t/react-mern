@@ -14,8 +14,8 @@ function App() {
       <Router>
         <MainNav icon="fa fa-github" title="Github Finder" />
         <div className="App" style={{ marginTop: "70px" }}>
-          <Route exact path={HOME_PATH} component={Landing} />
           <Route exact path={USER_PATH} component={User} />
+          <Route exact path={HOME_PATH} component={Landing} />
         </div>
       </Router>
     </Provider>

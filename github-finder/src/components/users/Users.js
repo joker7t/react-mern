@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { loadUsers } from "../../actions/userAction";
 import { setIsLoading } from "../../actions/controlAction";
 
-const Users = ({ users, isLoading }) => {
+const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
 
     const showItemsPerRow = (row, i) => {
         return <Row className="my-2" key={i}>
@@ -42,14 +42,13 @@ const Users = ({ users, isLoading }) => {
             setIsLoading(false);
         }
         loadData();
-    });
+    }, [loadUsers, setIsLoading]);
 
     return isLoading ? <MainSpinner /> : (
         <div>
             {buildItemsForRow(3, users)}
         </div>
     );
-
 }
 
 Users.propTypes = {
