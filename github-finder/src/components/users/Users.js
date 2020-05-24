@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loadUsers } from "../../actions/userAction";
 import { setIsLoading } from "../../actions/controlAction";
+import auth from "../../utils/auth";
 
 const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
 
@@ -34,7 +35,8 @@ const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
     useEffect(() => {
         const loadData = async () => {
             try {
-                const res = await axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+                console.log(auth);
+                const res = await axios.get(`https://api.github.com/users?client_id=${auth.clientId}&client_secret=${auth.clientSecret}`);
                 loadUsers(res.data);
             } catch (error) {
                 console.log(error && error.response);

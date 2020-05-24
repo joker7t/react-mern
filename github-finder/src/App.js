@@ -7,7 +7,6 @@ import { HOME_PATH, USER_PATH } from "./utils/constant";
 import Landing from './components/Landing';
 import MainNav from './components/layouts/MainNav';
 import User from './components/users/User';
-import NotFound from './components/layouts/NotFound';
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
         <div className="App" style={{ marginTop: "70px" }}>
           <Route exact path={USER_PATH} component={User} />
           <Route exact path={HOME_PATH} component={Landing} />
-          <Route component={NotFound} />
         </div>
       </Router>
     </Provider>

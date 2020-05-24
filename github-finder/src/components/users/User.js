@@ -10,6 +10,7 @@ import { Container, Button, Card, Image, Row, Col, Badge } from "react-bootstrap
 import { HOME_PATH } from "../../utils/constant";
 import { Link } from "react-router-dom";
 import Repo from './Repo';
+import auth from "../../utils/auth";
 
 const User = ({ isLoading, repos, selectedUser, location, setIsLoading, setSelectedUser, loadRepo, history }) => {
     const [loadMoreRepos, setLoadMoreRepos] = useState(false);
@@ -40,10 +41,10 @@ const User = ({ isLoading, repos, selectedUser, location, setIsLoading, setSelec
         const loadData = async (username) => {
             setIsLoading(true);
             try {
-                const resUser = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+                const resUser = await axios.get(`https://api.github.com/users/${username}?client_id=${auth.clientId}&client_secret=${auth.clientSecret}`);
                 setSelectedUser(resUser.data);
 
-                const resRepo = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+                const resRepo = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${auth.clientId}&client_secret=${auth.clientSecret}`);
                 loadRepo(resRepo.data);
             } catch (error) {
                 console.log(error && error.response);
