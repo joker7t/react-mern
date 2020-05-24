@@ -35,7 +35,6 @@ const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
     useEffect(() => {
         const loadData = async () => {
             try {
-                console.log(auth);
                 const res = await axios.get(`https://api.github.com/users?client_id=${auth.clientId}&client_secret=${auth.clientSecret}`);
                 loadUsers(res.data);
             } catch (error) {
