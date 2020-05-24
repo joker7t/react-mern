@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Users from './users/Users';
 import { Container } from "react-bootstrap";
 import SearchUser from './users/SearchUser';
 
-class Landing extends Component {
+const Landing = () => {
+    return (
+        <Container>
+            <SearchUser />
+            <Users />
 
-    render() {
-        return (
-            <Container>
-                <SearchUser />
-                <Users />
-
-            </Container>
-        );
-    }
+        </Container>
+    );
 }
 
 export default Landing;

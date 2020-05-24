@@ -3,9 +3,7 @@ import { Card, Image, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { USER_PATH } from "../../utils/constant";
 
-const UserItem = props => {
-
-    const { login, avatar_url } = props.user;
+const UserItem = ({ login, avatar_url }) => {
 
     return (
         <Card className="text-center p-1">
