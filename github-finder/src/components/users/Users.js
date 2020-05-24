@@ -42,7 +42,8 @@ const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
             setIsLoading(false);
         }
         loadData();
-    }, [loadUsers, setIsLoading]);
+        // eslint-disable-next-line
+    }, []);
 
     return isLoading ? <MainSpinner /> : (
         <div>

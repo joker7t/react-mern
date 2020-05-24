@@ -57,7 +57,8 @@ const User = ({ isLoading, repos, selectedUser, location, setIsLoading, setSelec
         } else {
             loadData(username);
         }
-    }, [history, loadRepo, location, setIsLoading, setSelectedUser]);
+        // eslint-disable-next-line
+    }, []);
 
     const { hireable, avatar_url, login, bio, html_url, company, blog, followers, following, public_repos, public_gists } = selectedUser;
     return (
