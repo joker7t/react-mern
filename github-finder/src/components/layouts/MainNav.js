@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 
 const MainNav = props => {
@@ -10,7 +11,7 @@ const MainNav = props => {
     return (
         <div>
             <Navbar bg="primary" expand="lg" variant="dark" fixed="top">
-                <Navbar.Brand href="#home">
+                <Navbar.Brand as={Link} to="/">
                     <i className={icon} /> {title}
                 </Navbar.Brand>
             </Navbar>

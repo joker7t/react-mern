@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -6,80 +6,70 @@ import PropTypes from "prop-types";
 import { loadUsers } from "../../actions/userAction";
 import { setIsLoading } from "../../actions/controlAction";
 
-class SearchUser extends Component {
-    state = {
-        searchUser: "",
-        isShowAlert: false
-    }
+const SearchUser = ({ users, setIsLoading, loadUsers }) => {
+    const [searchUser, setSearchUser] = useState('');
+    const [isShowAlert, setIsShowAlert] = useState(false);
 
-    onChange = (e) => {
-        this.setState({ [e.target.name]: e.target.value });
-        if (e.target.value !== "") {
-            this.setState({ isShowAlert: false });
+
+    const onChange = (e) => {
+        setSearchUser(e.target.value);
+        if (e.target.value !== '') {
+            setIsShowAlert(false);
         }
     };
 
-    onSubmit = async (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        const { searchUser } = this.state;
-        if (searchUser === "") {
-            this.setState({ isShowAlert: true });
+        if (searchUser === '') {
+            setIsShowAlert(true);
         } else {
-            this.setState({ searchUser: "" });
-            const { setIsLoading, loadUsers } = this.props;
-
+            setSearchUser('');
             setIsLoading(true);
             try {
                 const res = await axios.get(`https://api.github.com/search/users?q=${searchUser}`);
                 loadUsers(res.data.items);
-                console.log(res);
             } catch (error) {
-                console.log(error.response.data);
+                console.log(error && error.response);
             }
             setIsLoading(false);
         }
     };
 
-    onClear = async (e) => {
-        this.setState({ searchUser: "" });
-        const { loadUsers } = this.props;
+    const onClear = async (e) => {
+        setSearchUser('');
         loadUsers([]);
     };
 
-    render() {
-        const { searchUser, isShowAlert } = this.state;
-        const { users } = this.props;
+    return (
+        <React.Fragment>
+            {isShowAlert === false ? '' :
+                <Alert variant="danger" onClose={() => setIsShowAlert(false)} dismissible>
+                    Please enter something
+                </Alert>
+            }
+            <Form onSubmit={onSubmit}>
+                <Form.Control
+                    type="text"
+                    placeholder="Enter user..."
+                    name="searchUser"
+                    value={searchUser}
+                    onChange={onChange}
+                />
 
-        return (
-            <React.Fragment>
-                {isShowAlert === false ? "" :
-                    <Alert variant="danger" onClose={() => this.setState({ isShowAlert: false })} dismissible>
-                        Please enter something
-                    </Alert>
-                }
-                <Form onSubmit={this.onSubmit}>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter user"
-                        name="searchUser"
-                        value={searchUser}
-                        onChange={this.onChange}
-                    />
-
-                    <Button variant="dark" type="submit" block className="mt-3">
-                        Search
+                <Button variant="dark" type="submit" block className="mt-3">
+                    Search
                     </Button>
-                </Form>
+            </Form>
 
-                {users.length === 0 ? "" :
-                    <Button variant="outline-dark" block className="my-3" onClick={this.onClear}>
-                        Clear
+            {users.length === 0 ? '' :
+                <Button variant="outline-dark" block className="my-3" onClick={onClear}>
+                    Clear
                     </Button>
-                }
-            </React.Fragment>
-        );
-    }
+            }
+        </React.Fragment>
+    );
 }
+
 
 SearchUser.propTypes = {
     setIsLoading: PropTypes.func.isRequired,
