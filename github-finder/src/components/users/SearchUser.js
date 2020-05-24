@@ -70,7 +70,6 @@ const SearchUser = ({ users, setIsLoading, loadUsers }) => {
     );
 }
 
-
 SearchUser.propTypes = {
     setIsLoading: PropTypes.func.isRequired,
     loadUsers: PropTypes.func.isRequired,

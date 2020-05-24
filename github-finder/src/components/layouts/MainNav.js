@@ -4,9 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 
-const MainNav = props => {
-
-    const { title, icon } = props;
+const MainNav = ({ title, icon }) => {
 
     return (
         <div>

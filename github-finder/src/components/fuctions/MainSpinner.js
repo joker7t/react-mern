@@ -6,7 +6,6 @@ const MainSpinner = () => {
         <div className="main-spinner-container">
             <Spinner animation="border" className="main-spinner" />
         </div>
-
     );
 }
 
