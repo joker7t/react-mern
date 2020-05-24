@@ -18,13 +18,13 @@ class User extends Component {
         setIsLoading(true);
 
         try {
-            const resUser = await axios.get(`https://api.github.com/users/${username}`);
+            const resUser = await axios.get(`https://api.github.com/users/${username}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
             setSelectedUser(resUser.data);
 
-            const resRepo = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc`);
+            const resRepo = await axios.get(`https://api.github.com/users/${username}/repos?per_page=5&sort=created:asc&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
             loadRepo(resRepo.data);
         } catch (error) {
-            console.log(error.response.data);
+            console.log(error && error.response);
         }
 
         setIsLoading(false);

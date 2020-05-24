@@ -34,11 +34,11 @@ class Users extends Component {
     async componentDidMount() {
         const { setIsLoading, loadUsers } = this.props;
         try {
-            const res = await axios.get("https://api.github.com/users");
+            const res = await axios.get(`https://api.github.com/users?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
             loadUsers(res.data);
             console.log(res);
         } catch (error) {
-            console.log(error.response.data);
+            console.log(error && error.response);
         }
         setIsLoading(false);
 
