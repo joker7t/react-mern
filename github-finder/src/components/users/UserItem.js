@@ -29,7 +29,7 @@ const UserItem = props => {
                     More
                 </Button>
             </Card.Body>
-        </Card >
+        </Card>
     );
 }
 
