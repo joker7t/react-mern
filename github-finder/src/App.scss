@@ -40,3 +40,8 @@ $theme-colors: (
   font-weight: bold;
 }
 
+.user-detail{
+  height: calc( 100vh - 70px );
+  overflow-y: scroll;
+}
+
