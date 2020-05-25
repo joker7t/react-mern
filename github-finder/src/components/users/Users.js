@@ -14,7 +14,7 @@ const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
     const showItemsPerRow = (row, i) => {
         return <Row className="my-2" key={i}>
             {row.map((item, i2) => {
-                return <Col className="my-2" key={i2}>
+                return <Col className="my-2" key={i2} md={4}>
                     <UserItem user={item} />
                 </Col>
             })}
@@ -34,13 +34,16 @@ const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
 
     useEffect(() => {
         const loadData = async () => {
-            try {
-                const res = await axios.get(`https://api.github.com/users?client_id=${auth.clientId}&client_secret=${auth.clientSecret}`);
-                loadUsers(res.data);
-            } catch (error) {
-                console.log(error && error.response);
+            if (users.length === 0) {
+                setIsLoading(true);
+                try {
+                    const res = await axios.get(`https://api.github.com/users?client_id=${auth.clientId}&client_secret=${auth.clientSecret}`);
+                    loadUsers(res.data);
+                } catch (error) {
+                    console.log(error && error.response);
+                }
+                setIsLoading(false);
             }
-            setIsLoading(false);
         }
         loadData();
         // eslint-disable-next-line
