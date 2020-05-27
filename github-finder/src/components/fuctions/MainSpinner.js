@@ -7,6 +7,6 @@ const MainSpinner = () => {
             <Spinner animation="border" className="main-spinner" />
         </div>
     );
-}
+};
 
 export default MainSpinner;
