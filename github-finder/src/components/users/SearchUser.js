@@ -5,11 +5,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loadUsers } from "../../actions/userAction";
 import { setIsLoading } from "../../actions/controlAction";
+import classnames from "classnames";
 
 const SearchUser = ({ users, setIsLoading, loadUsers }) => {
     const [searchUser, setSearchUser] = useState('');
     const [isShowAlert, setIsShowAlert] = useState(false);
-
 
     const onChange = (e) => {
         setSearchUser(e.target.value);
@@ -49,6 +49,9 @@ const SearchUser = ({ users, setIsLoading, loadUsers }) => {
             }
             <Form onSubmit={onSubmit}>
                 <Form.Control
+                    className={classnames("form-control form-control-lg", {
+                        "is-invalid": isShowAlert
+                    })}
                     type="text"
                     placeholder="Enter user..."
                     name="searchUser"
@@ -56,15 +59,15 @@ const SearchUser = ({ users, setIsLoading, loadUsers }) => {
                     onChange={onChange}
                 />
 
-                <Button variant="dark" type="submit" block className="mt-3">
+                <Button variant="dark" type="submit" block className="mt-3 button-search">
                     Search
-                    </Button>
+                </Button>
             </Form>
 
             {users.length === 0 ? '' :
-                <Button variant="outline-dark" block className="my-3" onClick={onClear}>
+                <Button block className="my-3 button-clear" onClick={onClear}>
                     Clear
-                    </Button>
+                </Button>
             }
         </React.Fragment>
     );

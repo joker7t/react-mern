@@ -1,15 +1,34 @@
-$primaryColor: #a83289;
-$primaryOverlay: rgba(168, 50, 137, 0.8);
+$color-primary: #343B3F;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-secondary-light: #ffb900;
+$color-secondary-dark: #ff7730;
+$color-black: #343B3F;
 
 // import Boostrap and custom it
 // change the theme
 $theme-colors: (
-  "primary": $primaryColor,
+  "primary": $color-primary,
 );
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 //end Bootstrap
+
+//animations
+@keyframes moveInBottom {
+  0% {
+      opacity: 0;
+      transform: translateY(3rem);
+  }
+
+  100% {
+      opacity: 1;
+      transform: translate(0);
+  }
+}
+//end animations
 
 .user-img{
   width: 60px;
@@ -28,20 +47,134 @@ $theme-colors: (
 
 
   .main-spinner{
-    color: $primaryColor;
+    color: $color-primary;
     width: 5rem;
     height: 5rem;
   }
 }
 
 .repo-item{
-  color: $primaryColor;
+  color: $color-primary;
   font-style: 26px;
   font-weight: bold;
+  transition: 0.5s ease all;
+  cursor: pointer;
+
+  &:hover{
+    color: $color-secondary-dark;
+    background-color: $color-black;
+    transform: scale(1.01);
+  }
 }
 
 .user-detail{
   height: calc( 100vh - 70px );
   overflow-y: scroll;
 }
+
+.button-search{
+    &,
+    &:link,
+    &:visited {
+        text-decoration: none;
+        transition: all .2s;
+        position: relative;
+    }
+    
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 1rem 2rem rgba($color-black,.2);
+
+        &::after {
+            transform: scaleX(1.02) scaleY(1.5);
+            opacity: 0;
+        }
+    }
+    
+    &:active,
+    &:focus {
+        outline: none;
+        transform: translateY(-1px);
+        box-shadow: 0 .5rem 1rem rgba($color-black,.2);
+    }
+    
+    &::after {
+        content: "";
+        background-color: $color-black;
+        height: 100%;
+        width: 100%;
+        border-radius: 0.3rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .4s;
+    }
+}
+
+.button-clear{
+  border: 1px solid $color-black;
+  background-color: white;
+  color: $color-black;
+  transition: 0.5s ease all;
+  background-image: linear-gradient(120deg, white 0%, white 50%, $color-black 50%);
+  background-size: 320%;
+
+  &:hover {
+    box-shadow: 0 .5rem 1rem rgba($color-black,.2);
+    background-position: 100%;
+  }
+}
+
+.user-item{
+  border: 1px solid $color-black;
+  transition: 0.5s ease all;
+
+  &:hover {
+    box-shadow: 0 .5rem 1rem rgba($color-black,.2);
+    transform: scale(1.1);
+    background-color: $color-black;
+    color: white;
+
+    .user-item-button{
+      background-color: $color-secondary-dark;
+    }
+  }
+
+  &__animated{
+    animation: moveInBottom .5s ease-out .25s;
+    animation-fill-mode: backwards;
+  }
+
+  &-button{
+    background-color: $color-black;
+    color: white;
+    transition: 0.5s ease all;
+
+    &:hover {
+      box-shadow: 0 .5rem 1rem rgba($color-black,.3);
+      transform: skewX(-15deg);
+      background-color: $color-secondary-dark;
+      color: white;
+    }
+  }
+}
+
+.user-board{
+  background-color: $color-black;
+    color: white;
+
+    &-button{
+      background-color: $color-secondary-dark;
+      color: white;
+      transition: 0.5s ease all;
+
+      &:hover {
+        box-shadow: 0 .5rem 1rem rgba($color-black,.2);
+        transform: scale(1.1);
+        background-color: $color-secondary-dark;
+      }
+    }
+}
+
 

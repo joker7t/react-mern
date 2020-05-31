@@ -7,7 +7,7 @@ const UserItem = ({ user }) => {
     const { login, avatar_url } = user;
 
     return (
-        <Card className="text-center p-1">
+        <Card className="text-center pt-2 user-item">
             <Image
                 variant="top"
                 src={avatar_url}
@@ -23,8 +23,7 @@ const UserItem = ({ user }) => {
                         pathname: USER_PATH,
                         username: login
                     }}
-                    variant="dark"
-                    className="py-1">
+                    className="py-1 user-item-button">
                     More
                 </Button>
             </Card.Body>

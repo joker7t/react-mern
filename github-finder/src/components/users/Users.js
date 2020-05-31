@@ -14,7 +14,7 @@ const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
     const showItemsPerRow = (row, i) => {
         return <Row className="my-2" key={i}>
             {row.map((item, i2) => {
-                return <Col className="my-2" key={i2} md={4}>
+                return <Col className="my-2 user-item__animated" key={i2} md={4}>
                     <UserItem user={item} />
                 </Col>
             })}
@@ -46,6 +46,7 @@ const Users = ({ users, isLoading, setIsLoading, loadUsers }) => {
             }
         }
         loadData();
+
         // eslint-disable-next-line
     }, []);
 

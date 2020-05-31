@@ -16,7 +16,9 @@ const User = ({ isLoading, repos, selectedUser, location, setIsLoading, setSelec
     const [loadMoreRepos, setLoadMoreRepos] = useState(false);
     const userRef = useRef();
 
-    const showRepos = (repos) => repos.map((repo, i) => <Repo key={i} repoName={repo.full_name} />);
+    const showRepos = (repos) => repos.map((repo, i) =>
+        <Repo key={i} repoName={repo.full_name} delayTime={i} />
+    );
 
     const fetchMoreRepos = () => {
         //this is just an example for load more data
@@ -75,7 +77,7 @@ const User = ({ isLoading, repos, selectedUser, location, setIsLoading, setSelec
                         <i className="fa fa-check text-success" /> :
                         <i className="fa fa-times-circle text-danger" />
                     }
-                    <Card className="text-center p-1">
+                    <Card className="text-center p-1 user-board">
                         <Row className="mt-2">
                             <Col md={6}>
                                 <Image
@@ -95,7 +97,7 @@ const User = ({ isLoading, repos, selectedUser, location, setIsLoading, setSelec
                             <Col md={6}>
                                 <h3>Bio</h3>
                                 {bio === null ? <p>Blank</p> : <p>{bio}</p>}
-                                <Button variant="dark" href={html_url}>Visit Github Profile</Button>
+                                <Button className="user-board-button" href={html_url}>Visit Github Profile</Button>
                                 <ul style={{ listStyle: "none", paddingLeft: "0px" }} className="mt-2">
                                     <li>Username: {login}</li>
                                     {company && <li>Company: {company}</li>}
